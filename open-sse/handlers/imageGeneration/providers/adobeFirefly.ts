@@ -151,7 +151,7 @@ export async function handleAdobeFireflyImageGeneration({
         model,
         status: err.status,
         startTime,
-        error: err.message,
+        error: sanitizeErrorMessage(err.message),
       });
     }
     const errorText = sanitizeErrorMessage(err instanceof Error ? err.message : String(err));

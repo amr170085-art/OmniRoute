@@ -11,6 +11,7 @@
  * session.
  */
 
+import { sanitizeErrorMessage } from "../../utils/error.ts";
 import { Session } from "./session.ts";
 import { SessionPool } from "./sessionPool.ts";
 
@@ -69,7 +70,7 @@ export function withSessionPool(
         statusText: "Service Unavailable",
         body: JSON.stringify({
           error: "session_pool_exhausted",
-          message: `[SessionPool:${pool.provider}] ${(err as Error).message}`,
+          message: `[SessionPool:${pool.provider}] ${sanitizeErrorMessage((err as Error).message)}`,
         }),
         ok: false,
         headers: {},
@@ -120,7 +121,7 @@ export function withSessionPool(
         statusText: "Bad Gateway",
         body: JSON.stringify({
           error: "pool_network_error",
-          message: (err as Error).message,
+          message: sanitizeErrorMessage((err as Error).message),
         }),
         ok: false,
         headers: {},

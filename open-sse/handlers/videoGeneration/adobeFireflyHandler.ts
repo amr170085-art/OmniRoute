@@ -148,7 +148,7 @@ export async function handleAdobeFireflyVideoGeneration({
         duration: Date.now() - startTime,
         error: err.message.slice(0, 500),
       }).catch(() => {});
-      return { success: false, status: err.status, error: err.message };
+      return { success: false, status: err.status, error: sanitizeErrorMessage(err.message) };
     }
     const errorText = sanitizeErrorMessage(err instanceof Error ? err.message : String(err));
     log?.error?.("VIDEO", `${provider} adobe-firefly exception: ${errorText}`);
